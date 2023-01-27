@@ -20,22 +20,10 @@ export function validate(schema: ObjectSchema, type: "body" | "params") {
     if (!error) {
       next();
     } else {
+      console.log("aqui")
       res.status(httpStatus.BAD_REQUEST).send(invalidDataError(error.details.map((d) => d.message)));
     }
   };
 }
 
-export function validateBodySchema(schema: ObjectSchema) {
-  return (req: Request, res: Response, next: NextFunction) => {
-    const { error } = schema.validate(req.body, {
-      abortEarly: false,
-    });
-
-    if (!error) {
-      next();
-    } else {
-      res.status(httpStatus.BAD_REQUEST).send(invalidDataError(error.details.map((d) => d.message)));
-    }
-  };
-}
 type ValidationMiddleware = (req: Request, res: Response, next: NextFunction)=> void;
