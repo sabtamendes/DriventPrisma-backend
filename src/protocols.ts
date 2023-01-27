@@ -44,3 +44,34 @@ export type TicketTypeAndTicket = {
   createdAt: Date,
   updatedAt: Date,
 };
+
+export type Payments = {
+  ticketId: number,
+  cardData: {
+    issuer: string,
+    number: Number,
+    name: string,
+    expirationDate: Date,
+    cvv: number
+  }
+};
+
+export type CreatePayment = {
+  ticketId: number,
+  value: number,
+  cardIssuer: string,
+  cardLastDigits: string
+}
+
+export type ResponsePayment = {
+    id: number,
+    ticketId: number,
+    value: number,
+    cardIssuer: string, // VISA | MASTERCARD
+    cardLastDigits: string,
+    createdAt: Date,
+    updatedAt: Date,
+  }
+
+export type TicketId = Omit<Payments, "cardData">
+export type CardData = Omit<Payments, "ticketId">
