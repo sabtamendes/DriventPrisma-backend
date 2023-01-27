@@ -1,15 +1,26 @@
 import { prisma } from "@/config";
-import { TicketType } from "@prisma/client";
+import { TicketTypeAndTicket } from "@/protocols";
+//import { TicketTypeAndTicket, TicketTypeId} from "@/protocols";
+import { /*Prisma*/Prisma, TicketType } from "@prisma/client";
 
-export async function getTicketsTypes():Promise<TicketType[]> {
+export async function getTicketsTypes(): Promise<TicketType[]> {
     return await prisma.ticketType.findMany();
 }
 
-const getTicketsTypesRepository = {
-    getTicketsTypes
+// export async function createTicketsTypesById(data: TicketTypeId):Promise<TicketTypeAndTicket>{
+//   return await prisma.ticket.create({})
+// }
+
+export async function getTicketsByUserId(userId: number): Promise<TicketTypeAndTicket> {
+    return await prisma.ticket.findFirst({ where: { Enrollment: { userId } }, include: { TicketType: true } })
+}
+const ticketsRepository = {
+    getTicketsTypes,
+    //createTicketsTypesById,
+    getTicketsByUserId
 }
 
-export default getTicketsTypesRepository
+export default ticketsRepository
 
 
 

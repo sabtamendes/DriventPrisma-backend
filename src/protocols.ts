@@ -1,4 +1,3 @@
-import { Prisma } from "@prisma/client";
 
 export type ApplicationError = {
   name: string;
@@ -32,7 +31,24 @@ export type RequestError = {
 };
 
 export type TicketTypeId = {
-  id: number
+  ticketTypeId: number
 }
 
-Prisma
+export type TicketTypeAndTicket =
+    {
+      id: number,
+      status: string, //RESERVED | PAID
+      ticketTypeId: number,
+      enrollmentId: number,
+      TicketType: {
+        id: number,
+        name: string,
+        price: number,
+        isRemote: boolean,
+        includesHotel: boolean,
+        createdAt: Date,
+        updatedAt: Date,
+      },
+      createdAt: Date,
+      updatedAt: Date,
+    }
