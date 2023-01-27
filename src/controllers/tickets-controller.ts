@@ -1,11 +1,9 @@
 import { AuthenticatedRequest } from "@/middlewares";
-//import { TicketTypeId } from "@/protocols";
-import { findTicket } from "@/repositories/tickets-repository";
+import { TicketTypeId } from "@/protocols";
 import ticketsValidService from "@/services/tickets-service";
-import { User } from "@prisma/client";
 import { Response } from "express";
 import httpStatus from "http-status";
-
+//pronto
 export async function ticketsTypes(req: AuthenticatedRequest, res: Response) {
     try {
         const types = await ticketsValidService.ticketsTypes()
@@ -19,21 +17,26 @@ export async function ticketsTypes(req: AuthenticatedRequest, res: Response) {
 }
 
 
-// export async function postTickets(req: AuthenticatedRequest, res: Response) {
-//     const  ticketTypeId = req.body.ticketTypeId as TicketTypeId;
-//     try {
-//         const data = await ticketsValidService.postTickets(ticketTypeId);
-//     } catch (error) {
-//         return res.sendStatus(httpStatus.BAD_REQUEST);
-//     }
-// }
+export async function postTicket(req: AuthenticatedRequest, res: Response) {
+    const ticketTypeId = req.body.ticketTypeId as number;
+    const userId = req.userId;
+    try {
+        const data = await ticketsValidService.postTicket(userId, ticketTypeId);
+
+        res.status(httpStatus.CREATED).send(data);
+
+    } catch (error) {
+        return res.sendStatus(httpStatus.BAD_REQUEST);
+    }
+}
 
 
 //PRONTO 
 export async function tickets(req: AuthenticatedRequest, res: Response) {
     const { userId } = req;
     try {
-        const data = await ticketsValidService.tickets(userId)
+        const data = await ticketsValidService.tickets(userId);
+
         if (data === null) {
             console.log(data)
             return res.sendStatus(httpStatus.NOT_FOUND)
