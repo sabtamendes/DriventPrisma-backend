@@ -6,8 +6,8 @@ import { ticketIdSchema } from "@/schemas/ticket-schemas";
 const ticketsRouter = Router();
 
 ticketsRouter
-    .all("/*", authenticateToken)
-    .get("/types", ticketsTypes)
-    .get("/", tickets)
-    .post("/", validateBody(ticketIdSchema), postTicket);
+  .all("/*", authenticateToken)
+  .get("/types", ticketsTypes)
+  .get("/", tickets)
+  .post("/", validateBody(ticketIdSchema), postTicket);
 export { ticketsRouter };
