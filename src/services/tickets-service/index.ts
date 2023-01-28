@@ -19,7 +19,8 @@ async function postTicket(userId: number, ticketTypeId: number): Promise<TicketT
 
 async function tickets(userId: number) {
   const data = await ticketsRepository.getTicketsByUserId(userId);
-  if (!data) {
+
+  if(!data) {
     throw notFoundError();
   }
   return data;
