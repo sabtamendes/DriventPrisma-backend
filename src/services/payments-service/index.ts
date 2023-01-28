@@ -1,8 +1,7 @@
-import { notFoundError, unauthorizedError } from "@/errors";
+import { notFoundError, unauthorizedError, requestError } from "@/errors";
 import { Payments, ResponsePayment } from "@/protocols";
 import paymentsRepository from "@/repositories/payments-repository";
 import ticketsRepository from "@/repositories/tickets-repository";
-
 
 async function postPayments(data: Payments, userId: number): Promise<ResponsePayment> {
   const ticket = await ticketsRepository.findTicket(data.ticketId);
@@ -26,7 +25,7 @@ async function postPayments(data: Payments, userId: number): Promise<ResponsePay
 }
 
 async function getPaymentByTicketId(ticketId: number, userId: number): Promise<ResponsePayment> {
-    
+  if(!ticketId) throw requestError(400, "");
   const ticket = await ticketsRepository.findTicketByTicketId(ticketId);
 
   if (!ticket) throw notFoundError(); 

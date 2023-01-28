@@ -30,11 +30,10 @@ async function findTicket(id: number) {
   return await prisma.ticket.findFirst({ where: { id }, include: { Enrollment: true, TicketType: true } });
 }
 async function findTicketByTicketId(id: number) {
- // const tickeId = Number(id) as number;
-  return await prisma.ticket.findFirst({ where: { id}, include: { Enrollment: true , TicketType: true} });
+  return await prisma.ticket.findFirst({ where: { id }, include: { Enrollment: true, TicketType: true } });
 }
 async function updateTicketStatus(ticketId: number ) {
-  return await prisma.ticket.update({ where: { id: ticketId }, data: {  status:"PAID" } });
+  return await prisma.ticket.update({ where: { id: ticketId }, data: {  status: "PAID" } });
 }
 
 const ticketsRepository = {
