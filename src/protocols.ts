@@ -49,7 +49,7 @@ export type Payments = {
   ticketId: number,
   cardData: {
     issuer: string,
-    number: Number,
+    number: number,
     name: string,
     expirationDate: Date,
     cvv: number
@@ -70,7 +70,7 @@ export type ResponsePayment = {
     cardIssuer: string, // VISA | MASTERCARD
     cardLastDigits: string,
     createdAt: Date,
-    updatedAt: Date,
+    updatedAt: Date
   }
 
 export type TicketId = Omit<Payments, "cardData">
